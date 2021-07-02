@@ -1,4 +1,4 @@
-class Player extends Phaser.GameObjects.Sprite {
+class Obstacle extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
 
@@ -6,19 +6,21 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
 
         // initialize class variables here
-        this.isJumping = false;
+        this.moveSpeed = game.settings.obstacleSpeed;
         
         // add sfx here this.sfx<name> = scene.sound.add('sfx_<soundname>');
         // make sure the file is already loaded in menu.js
     }
     create() {
         // define key values
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
     update() {
-        if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
-
+        this.x -= this.moveSpeed;
+        if(this.x <= 0 - this.width) {
+            this.reset();
         }
     }
-    reset() {}
+    reset() {
+        this.x = game.config.width;
+    }
 }

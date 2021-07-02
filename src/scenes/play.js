@@ -4,7 +4,9 @@ class Play extends Phaser.Scene {
     }
     init() {}
     preload() {}
-    create() {}
+    create() {
+        this.sound.play('playBGMF');
+    }
     update() {}
-    // collision function here
+    // collision check function(s) here
 }
