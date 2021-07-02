@@ -3,7 +3,11 @@ class Menu extends Phaser.Scene {
         super("menuScene");
     }
     init() {}
-    preload() {}
+    preload() {
+        this.load.audio('sfx_select', './assets/cursor.wav');
+    }
     create() {}
-    update() {}
+    update() {
+        this.sound.play('sfx_select');
+    }
 }
