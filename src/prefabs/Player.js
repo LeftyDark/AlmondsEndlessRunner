@@ -6,11 +6,17 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
 
         this.isJumping = false;
-        this.moveSpeed = 1;
+        this.isFalling = false;
+        this.moveSpeed = 0;
         
         // add sfx here this.sfx___ = scene.sound.add('sfx_---');
     }
 
-    update() {}
+    update() {
+        if(Phaser.Input.Keyboard.JustDown(this.keyA)) {
+            this.isJumping = true;
+        }
+    }
+        
     reset() {}
 }
