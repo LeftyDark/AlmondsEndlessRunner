@@ -20,10 +20,6 @@ Project Length:
 
 let config = {
     type: Phaser.CANVAS,
-<<<<<<< HEAD
-    width: 1280,
-    height: 720,
-=======
     width: 640,
     height: 480,
     physics: {
@@ -36,7 +32,6 @@ let config = {
             }
         }
     },
->>>>>>> de3a049431c3f23722aad89b0576ea308b5b3ad6
     scene: [Menu, Play]
 }
 
