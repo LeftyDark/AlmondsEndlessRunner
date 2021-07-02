@@ -5,6 +5,7 @@ class Player extends Phaser.GameObjects.Sprite {
         // add to scene
         scene.add.existing(this);
 
+        //States the player can be in
         this.isJumping = false;
         this.isFalling = false;
         this.moveSpeed = 0;
