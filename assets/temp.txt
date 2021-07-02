@@ -1,0 +1,1 @@
+This is here so the assets folder shows up on github while it is empty.
