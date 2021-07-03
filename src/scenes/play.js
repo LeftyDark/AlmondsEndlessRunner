@@ -4,22 +4,27 @@ class Play extends Phaser.Scene {
     }
     init() {}
     preload() {
-        this.load.image('placeholder_ground','./assets/Sprites/placeholder_ground.png');
+        this.load.image('ground','./assets/Sprites/placeholder_ground.png');
+        this.load.image('player', './assets/Sprites/noun_runningman_20.png');
+        //running person by Kathleen Black from the Noun Project
     }
 
     create() {
         this.sound.play('playBGMF');
         this.MAX_VELOCITY = 500;
         this.physics.world.gravity.y = 1000;
+        this.cameras.main.setBackgroundColor('#CCC');
 
         //creating ground
         this.ground = this.add.group();
         for( let i = 0; i < game.config.width; i += 20) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - 20, 'placeholder_ground').setOrigin(0);
+            let groundTile = this.physics.add.sprite(i, game.config.height - 20, 'ground').setOrigin(0);
             groundTile.body.immovable = true;
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
+        this.player = this.physics.add.sprite(game.config.width/2, game.config.height-100, 'player');
+        this.physics.add.collider(this.player, this.ground);
     }
     update() {}
     // This collision function will run a specific function depending on 
