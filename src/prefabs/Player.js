@@ -4,6 +4,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         // add to scene
         scene.add.existing(this);
+        scene.physics.add.existing(this, 0);
         //States the player can be in
         this.isJumping = false;
         this.isFalling = false;
