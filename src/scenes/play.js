@@ -29,23 +29,34 @@ class Play extends Phaser.Scene {
         //creating the different objects in scene. Will need to be edited later to randomly generate obstacles over time
         this.player = new Player(this, game.config.width/2, game.config.height-100, 'player');
         this.physics.add.collider(this.player, this.ground);
-        
-        this.obstacle = new Obstacle(this, game.config.width*0.8, game.config.height-100, 'obstacle');
+        /*
+        this.obstacle = new Obstacle(this, game.config.width, game.config.height-100, 'obstacle');
         this.obstacle.setVelocityX(this.obstacle.moveSpeed);
         this.physics.add.collider(this.obstacle, this.ground);
         this.airObstacle = new Obstacle(this, game.config.width*0.9, game.config.height-350, 'obstacle');
         this.airObstacle.body.allowGravity = false;
         this.airObstacle.setVelocityX(this.obstacle.moveSpeed);
+        */
         this.monster = this.physics.add.sprite(game.config.width-590, game.config.height-260, 'monster');
         this.monster.body.immovable = true;
         this.monster.body.allowGravity = false;
         this.physics.add.collider(this.monster, this.ground);
+        //creating lists of ground and air obstacles
+        gObstacleList = []
+        aObstacleList = []
+        this.CreateGroundObstacle();
+        this.CreateAirObstacle();
     }
     update() {
-        this.obstacleDelete(this.obstacle, this.monster);
-        this.obstacleDelete(this.airObstacle, this.monster);
+        gObstacleList.forEach(obstacle => this.obstacleDelete(obstacle, this.monster));
+        aObstacleList.forEach(obstacle => this.obstacleDelete(obstacle, this.monster));
+        gObstacleList.forEach(obstacle => this.pushPlayer(this.player, obstacle));
+        aObstacleList.forEach(obstacle => this.dropPlayer(this.player, obstacle));
+        //this.obstacleDelete(this.obstacle, this.monster);
+        //this.obstacleDelete(this.airObstacle, this.monster);
         this.gameOver(this.player, this.monster);
-        this.pushPlayer(this.player, this.obstacle);
+        //this.pushPlayer(this.player, this.obstacle);
+        //this.dropPlayer(this.player, this.airObstacle);
     }
     // This function will delete an obstacle when it collides with the monster at the edge of the screen.
     //It has a slight bug where if the two obstacles are both colliding at the same time, it will fail to delete 1 of them.
@@ -72,6 +83,7 @@ class Play extends Phaser.Scene {
         }
     }
     pushPlayer(player, gObstacle) {
+        //function for player getting pushed while they are colliding with a ground obstacle
         if (player.x < gObstacle.x + gObstacle.width && 
             player.x + player.width > gObstacle.x && 
             player.y < gObstacle.y + gObstacle.height &&
@@ -81,7 +93,27 @@ class Play extends Phaser.Scene {
             player.setVelocityX(0);
         }
     }
+    dropPlayer(player, aObstacle) {
+        //function for player falling after they collide with an air obstacle
+        if (player.x < aObstacle.x + aObstacle.width && 
+            player.x + player.width > aObstacle.x && 
+            player.y < aObstacle.y + aObstacle.height &&
+            player.height + player.y > aObstacle. y) {
+                player.setVelocityY(-40);
+    } else { return false;}
+    }
     CreateGroundObstacle() {
-        //this.newObstacle = 
+        //generates a new Ground Obstacle
+        this.gObstacle = new Obstacle(this, game.config.width*0.8, game.config.height-100, 'obstacle');
+        this.gObstacle.setVelocityX(this.gObstacle.moveSpeed);
+        this.physics.add.collider(this.gObstacle, this.ground);
+        gObstacleList.push(this.gObstacle);
+    }
+    CreateAirObstacle() {
+        //generates a new Air Obstacle
+        this.aObstacle = new Obstacle(this, game.config.width*0.9, game.config.height-350, 'obstacle');
+        this.aObstacle.setVelocityX(this.aObstacle.moveSpeed);
+        this.aObstacle.body.allowGravity = false;
+        aObstacleList.push(this.aObstacle);
     }
 }
