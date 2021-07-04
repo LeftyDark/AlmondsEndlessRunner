@@ -1,5 +1,5 @@
 //This will become like the obstacle or player class thing probably later but I am currently 
-class Monster extends Phaser.GameObjects.Sprite {
+class Monster extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
 

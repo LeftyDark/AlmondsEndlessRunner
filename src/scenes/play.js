@@ -26,16 +26,22 @@ class Play extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
+        //creating the different objects in scene. Will need to be edited later to randomly generate obstacles over time
+        //this.player = new Player(this, game.config.width/2, game.config.height-100, 'player');
         this.player = this.physics.add.sprite(game.config.width/2, game.config.height-100, 'player');
         this.physics.add.collider(this.player, this.ground);
-        this.obstacle = this.physics.add.sprite(game.config.width*0.8, game.config.height-100, 'obstacle');
-        this.physics.add.collider(this.obstacle, this.ground);
+        this.obstacle = new Obstacle(this, game.config.width*0.8, game.config.height-100, 'obstacle', 0, 'Ground');
+        this.obstacle.setVelocityX(-40);
+        //this.physics.add.collider(this.obstacle, this.ground);
         this.airObstacle = this.physics.add.sprite(game.config.width*0.8, game.config.height-350, 'obstacle');
         this.airObstacle.body.allowGravity = false;
+        this.airObstacle.setCollideWorldBounds(true);
+        this.airObstacle.setVelocityX(-40);
         this.monster = this.physics.add.sprite(game.config.width-590, game.config.height-260, 'monster');
         this.physics.add.collider(this.monster, this.ground);
     }
-    update() {}
+    update() {
+    }
     // This collision function will run a specific function depending on 
     //what two object are colliding
     checkCollision(object1, object2, resultFunction) {
@@ -50,6 +56,6 @@ class Play extends Phaser.Scene {
         this.scene.play("menuScene");
     }
     monsterObstacleCollision(obstacle, monster) {
-        //Need to make this delete the obstacle
+        obstacle.destroy();
     }
 }

@@ -16,7 +16,7 @@ class Menu extends Phaser.Scene {
     create() {
         this.sound.play('menuBGM');
         game.settings = {
-            obstacleSpeed: 1
+            obstacleSpeed: -40
         }
         this.sound.play('sfx_select');
         this.add.image(0, 0, 'white_placeholder');
