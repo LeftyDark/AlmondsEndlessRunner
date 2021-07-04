@@ -38,13 +38,21 @@ class Play extends Phaser.Scene {
         aObstacleList = []
         this.gObstacleTimer = this.time.addEvent(
             {
-                delay: 2000,
-                callback: this.CreateGroundObstacle(),
+                delay: 3000,
+                callback: ()=> this.CreateGroundObstacle(),
                 callbackScope: this,
                 loop: true,
             }
         )
-        //this.CreateGroundObstacle();
+        this.aObstacleTimer = this.time.addEvent(
+            {
+                delay: 3000,
+                callback: ()=> this.CreateAirObstacle(),
+                callbackScope: this,
+                loop: true,
+            }
+        )
+        this.CreateGroundObstacle();
         this.CreateAirObstacle();
     }
     update() {
@@ -104,7 +112,7 @@ class Play extends Phaser.Scene {
         this.gObstacle.setVelocityX(this.gObstacle.moveSpeed);
         this.physics.add.collider(this.gObstacle, this.ground);
         gObstacleList.push(this.gObstacle);
-        console.log('new obstacle');
+        console.log('new')
     }
     CreateAirObstacle() {
         //generates a new Air Obstacle
