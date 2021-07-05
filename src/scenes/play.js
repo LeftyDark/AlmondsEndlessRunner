@@ -5,9 +5,9 @@ class Play extends Phaser.Scene {
     init() {}
     preload() {
         this.load.image('ground','./assets/Sprites/placeholder_ground.png');
-        this.load.image('player', './assets/Sprites/noun_runningman_20.png');
+        this.load.image('player', './assets/Sprites/noun_runningman_10.png');
         //running person by Kathleen Black from the Noun Project
-        this.load.image('obstacle', './assets/Sprites/placeholder_obstacle_20.png');
+        this.load.image('obstacle', './assets/Sprites/placeholder_obstacle_small.png');
         //obstacle by Ian Rahmadi Kurniawan from the Noun Project
         this.load.image('monster', './assets/Sprites/placeholder_deathbox.png');
     }
@@ -53,7 +53,7 @@ class Play extends Phaser.Scene {
         )
         this.aObstacleTimer = this.time.addEvent(
             {
-                delay: 5000,
+                delay: 4000,
                 callback: ()=> this.CreateAirObstacle(),
                 callbackScope: this,
                 loop: true,
