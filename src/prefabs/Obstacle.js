@@ -16,9 +16,11 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     }
     create() {
         // define key values
+        
     }
     update() {
     }
     reset() {
     }
+
 }

@@ -13,6 +13,9 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        gameBGM = this.sound.add('playBGMF');
+        gameBGM.loop = true;
+        gameBGM.play();
         this.sound.play('playBGMF');
         this.ACCELERATION = 500;
         this.MAX_X_VEL = 500;
@@ -53,7 +56,7 @@ class Play extends Phaser.Scene {
         )
         this.aObstacleTimer = this.time.addEvent(
             {
-                delay: 4000,
+                delay: 2500,
                 callback: ()=> this.CreateAirObstacle(),
                 callbackScope: this,
                 loop: true,

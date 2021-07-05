@@ -14,7 +14,10 @@ class Menu extends Phaser.Scene {
         this.load.image('white_placeholder','./assets/Sprites/white.jpg');
     }
     create() {
-        this.sound.play('menuBGM');
+        menuBGM = this.sound.add('menuBGM');
+        menuBGM.loop = true;
+        menuBGM.play();
+        //this.sound.play('menuBGM');
         game.settings = {
             obstacleSpeed: -100
         }

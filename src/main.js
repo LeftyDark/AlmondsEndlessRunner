@@ -42,3 +42,4 @@ let borderPadding = borderUISize / 3
 
 let keyLEFT, keyRIGHT, keyW, keyA, keyS, keyD, keySPACE;
 let gObstacleList, aObstacleList;
+let menuBGM, gameBGM;
