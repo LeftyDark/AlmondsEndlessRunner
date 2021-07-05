@@ -8,22 +8,29 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //States the player can be in
         this.isJumping = false;
         this.isFalling = false;
-        this.moveSpeed = 0;
-        this.xVelocity = 0;
+        this.JUMP_VELOCITY = -700;
+        
         
         // add sfx here this.sfx<name> = scene.sound.add('sfx_<soundname>');
         // make sure the file is already loaded in menu.js
     }
     create() {
-        // define key values
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        // define key values 
+        
     }
 
     update() {
-        if(Phaser.Input.Keyboard.JustDown(this.keySPACE)) {
+        if(this.isFalling == false && Phaser.Input.Keyboard.DownDuration(keySPACE, 250)) {
             this.isJumping = true;
-            console.log('jump');
+            this.body.velocity.y = this.JUMP_VELOCITY;
+            
         }
+        if(this.body.velocity.y >0) {
+            this.isFalling = true;
+            this.isJumping = false;
+            console.log('fall');
+        }
+        else {this.isFalling = false;}
     }
         
     reset() {}

@@ -14,9 +14,15 @@ class Play extends Phaser.Scene {
 
     create() {
         this.sound.play('playBGMF');
-        this.MAX_VELOCITY = 500;
+        this.ACCELERATION = 500;
+        this.MAX_X_VEL = 500;
+        this.MAX_Y_VEL =  5000;
+        this.JUMP_VELOCITY = -1000;
         this.physics.world.gravity.y = 1000;
         this.cameras.main.setBackgroundColor('#CCC');
+
+        //defining jump key
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         //creating ground
         this.ground = this.add.group();
@@ -28,6 +34,7 @@ class Play extends Phaser.Scene {
         }
         //creating the different objects in scene. Will need to be edited later to randomly generate obstacles over time
         this.player = new Player(this, game.config.width/2, game.config.height-100, 'player');
+        this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.ground);
         this.monster = this.physics.add.sprite(game.config.width-590, game.config.height-260, 'monster');
         this.monster.body.immovable = true;
@@ -46,7 +53,7 @@ class Play extends Phaser.Scene {
         )
         this.aObstacleTimer = this.time.addEvent(
             {
-                delay: 3000,
+                delay: 5000,
                 callback: ()=> this.CreateAirObstacle(),
                 callbackScope: this,
                 loop: true,
@@ -56,9 +63,10 @@ class Play extends Phaser.Scene {
         this.CreateAirObstacle();
     }
     update() {
+        this.player.update();
         gObstacleList.forEach(obstacle => this.obstacleDelete(obstacle, this.monster));
         aObstacleList.forEach(obstacle => this.obstacleDelete(obstacle, this.monster));
-        //gObstacleList.forEach(obstacle => this.pushPlayer(this.player, obstacle));
+        gObstacleList.forEach(obstacle => this.pushPlayer(this.player, obstacle));
         aObstacleList.forEach(obstacle => this.dropPlayer(this.player, obstacle));
         this.gameOver(this.player, this.monster);
     }
@@ -103,7 +111,7 @@ class Play extends Phaser.Scene {
             player.x + player.width > aObstacle.x && 
             player.y < aObstacle.y + aObstacle.height &&
             player.height + player.y > aObstacle. y) {
-                player.setVelocityY(-40);
+                player.setVelocityY(50);
     } else { return false;}
     }
     CreateGroundObstacle() {
@@ -112,12 +120,11 @@ class Play extends Phaser.Scene {
         this.gObstacle.setVelocityX(this.gObstacle.moveSpeed);
         this.physics.add.collider(this.gObstacle, this.ground);
         gObstacleList.push(this.gObstacle);
-        console.log('new')
     }
     CreateAirObstacle() {
         //generates a new Air Obstacle
-        this.aObstacle = new Obstacle(this, game.config.width*0.9, game.config.height-350, 'obstacle');
-        this.aObstacle.setVelocityX(this.aObstacle.moveSpeed);
+        this.aObstacle = new Obstacle(this, game.config.width*0.9, game.config.height-400, 'obstacle');
+        this.aObstacle.setVelocityX(this.aObstacle.moveSpeed-20);
         this.aObstacle.body.allowGravity = false;
         aObstacleList.push(this.aObstacle);
     }
