@@ -13,6 +13,8 @@ class Menu extends Phaser.Scene {
         // load image here
         this.load.image('menu','./assets/Sprites/MainMenu.png');
         this.load.image('bean', './assets/Sprites/enemy_bean-export.png');
+       
+        
     }
     create() {
         menuBGM = this.sound.add('menuBGM');
@@ -23,6 +25,8 @@ class Menu extends Phaser.Scene {
             obstacleSpeed: -100
         }
         this.sound.play('sfx_select');
+
+        //create falling beans in the background
         this.bean1 = this.physics.add.sprite(game.config.width-40, game.config.height-450, 'bean');
         this.bean1.setVelocityY(120);
         this.bean1.setCollideWorldBounds(true);
@@ -47,6 +51,8 @@ class Menu extends Phaser.Scene {
         this.bean8 = this.physics.add.sprite(game.config.width-600, game.config.height-450, 'bean');
         this.bean8.setVelocityY(120);
         this.bean8.setCollideWorldBounds(true);
+
+        //create main menu image
         this.add.image(0, 0, 'menu').setOrigin(0);
        
         

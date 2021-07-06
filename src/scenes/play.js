@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image('ground','./assets/Sprites/placeholder_ground.png');
         this.load.image('player', './assets/Sprites/noun_runningman_10.png');
+        this.load.spritesheet('playerSprite', './assets/Sprites/beanman-running.png', {frameWidth: 64, frameHeight: 64, startFrame: 0, endFrame: 7});
         //running person by Kathleen Black from the Noun Project
         this.load.image('obstacle', './assets/Sprites/enemy_bean-export.png');
         this.load.image('monster', './assets/Sprites/placeholder_deathbox.png');
@@ -34,14 +35,24 @@ class Play extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
-        //creating the different objects in scene. Will need to be edited later to randomly generate obstacles over time
-        this.player = new Player(this, game.config.width/2, game.config.height-100, 'player');
+        //creating the different objects in scene. 
+        this.player = new Player(this, game.config.width/2, game.config.height-100, 'playerSprite');
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.ground);
         this.monster = this.physics.add.sprite(game.config.width-590, game.config.height-260, 'monster');
         this.monster.body.immovable = true;
         this.monster.body.allowGravity = false;
         this.physics.add.collider(this.monster, this.ground);
+
+        //creating the animations
+        this.moveAni = this.anims.create({
+            key: 'playerMove',
+            frames: this.anims.generateFrameNumbers('playerSprite', { start: 0, end: 7, first: 0}),
+            frameRate: 8,
+            repeat: -1
+        });
+        this.player.anims.play('playerMove', 8, true);
+
         //creating lists of ground and air obstacles
         gObstacleList = []
         aObstacleList = []

@@ -16,7 +16,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
     create() {
         // define key values 
-        
     }
 
     update() {
@@ -31,6 +30,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             console.log('fall');
         }
         else {this.isFalling = false;}
+        
+        
     }
         
     reset() {}
