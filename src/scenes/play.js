@@ -99,6 +99,7 @@ class Play extends Phaser.Scene {
         object2.y > object1.y - (object1.height/2) -(object2.height/2) &&
         object2.y < (object1.y + object1.height/2 + object2.height/2)) {
                 object1.destroy();
+                object1.x = -50000
         } else {
             return false;
         }
