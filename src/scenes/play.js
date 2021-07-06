@@ -7,8 +7,7 @@ class Play extends Phaser.Scene {
         this.load.image('ground','./assets/Sprites/placeholder_ground.png');
         this.load.image('player', './assets/Sprites/noun_runningman_10.png');
         //running person by Kathleen Black from the Noun Project
-        this.load.image('obstacle', './assets/Sprites/placeholder_obstacle_small.png');
-        //obstacle by Ian Rahmadi Kurniawan from the Noun Project
+        this.load.image('obstacle', './assets/Sprites/enemy_bean-export.png');
         this.load.image('monster', './assets/Sprites/placeholder_deathbox.png');
     }
 
